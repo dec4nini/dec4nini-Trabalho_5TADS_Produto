@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Modelo.Cadastro.ProdutoM>
+
+
+@{
+    Layout = "_LayoutIES";
+}
+
+@section styles{
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="card-block">
+    <div class="card-header text-black-50 bg-light text-center h4">
+        Carros Registrados
+    </div>
+    <div class="card-body">
+        <table class="table table-striped" id="tabela-produtos">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProdutoID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Distribuidora)
+                    </th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProdutoID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Distribuidora)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProdutoID">Alterar</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProdutoID">Detalhes</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProdutoID">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer bg-success text-center">
+        <a asp-action="Create" class="btn-success">Criar Produto</a>
+    </div>
+</div>
+
+@section Scripts{
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tabela-produtos').DataTable({
+                    "order": [[1, "asc"]]
+                });
+            });
+    </script>
+
+}
+
